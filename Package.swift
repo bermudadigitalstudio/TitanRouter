@@ -8,6 +8,6 @@ var package = Package(
 )
 
 // Uncomment the following to install sourcery for development
-package.dependencies.append(
- .Package(url: "https://github.com/krzysztofzablocki/Sourcery.git", "0.5.0")
-)
+//package.dependencies.append(
+// .Package(url: "https://github.com/krzysztofzablocki/Sourcery.git", "0.5.0")
+//)
