@@ -36,23 +36,23 @@ final class TitanRouterTests: XCTestCase {
   }
 
   func testTitanSugar() {
-    let somePremadeMiddleware: Middleware = { req, res in
+    let somePremadeFunction: Function = { req, res in
       return (req, res)
     }
-    app.get(path: "/username", handler: somePremadeMiddleware)
-    app.get("/username", somePremadeMiddleware)
+    app.get(path: "/username", handler: somePremadeFunction)
+    app.get("/username", somePremadeFunction)
   }
 
   func testMiddlewareFunction() {
     var start = Date()
     var end = start
-    app.middleware("*") {
+    app.addFunction("*") {
       start = Date()
     }
     app.get("/username") {
       return "swizzlr"
     }
-    app.middleware("*") {
+    app.addFunction("*") {
       end = Date()
     }
     _ = app.app(request: Request("GET", "/username"))

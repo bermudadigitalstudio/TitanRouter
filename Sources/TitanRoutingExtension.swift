@@ -4,8 +4,8 @@ extension Titan {
   /// Core routing handler for Titan Routing.
   /// Passing `nil` for the method results in matching all methods for a given path
   /// Path matching is defined in `matchRoute` method, documented in `docs/Routes.md`
-  public func route(method: String? = nil, path: String, handler: @escaping Middleware) {
-    let routeWare: Middleware = { (req, res) in
+  public func route(method: String? = nil, path: String, handler: @escaping Function) {
+    let routeFunction: Function = { (req, res) in
       if let m = method, m.uppercased() != req.method.uppercased() {
         return (req, res)
       }
@@ -14,11 +14,11 @@ extension Titan {
       }
       return handler(req, res)
     }
-    middleware(middleware: routeWare)
+    addFunction(routeFunction)
   }
 
   /// Synonym for `route`
-  public func middleware(path: String, handler: @escaping Middleware) {
+  public func addFunction(path: String, handler: @escaping Function) {
     route(path: path, handler: handler)
   }
 
