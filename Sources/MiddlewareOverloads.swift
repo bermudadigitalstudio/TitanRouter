@@ -1,30 +1,6 @@
 import TitanCore
 
 extension Titan {
-  private func toFunction(_ handler: @escaping () -> String) -> Function {
-    return { req, res in
-      return (req, Response(200, handler()))
-    }
-  }
-  private func toFunction(_ handler: @escaping (RequestType) -> String) -> Function {
-    return { req, res in
-      return (req, Response(200, handler(req)))
-    }
-  }
-
-  private func toFunction(_ handler: @escaping () -> ()) -> Function {
-    return { req, res in
-      handler()
-      return (req, res)
-    }
-  }
-
-  private func toFunction(_ handler: @escaping (RequestType) -> Int) -> Function {
-    return { req, res in
-      return (req, Response(handler(req), ""))
-    }
-  }
-
   public func get(_ path: String, handler: @escaping (RequestType) -> String) {
     get(path: path, handler: toFunction(handler))
   }
@@ -61,7 +37,31 @@ extension Titan {
     head(path: path, handler: toFunction(handler))
   }
 
-  public func addFunction(_ path: String, handler: @escaping () -> ()) {
+  public func addFunction(_ path: String, handler: @escaping () -> Void) {
     addFunction(path: path, handler: toFunction(handler))
+  }
+}
+
+private func toFunction(_ handler: @escaping () -> String) -> Function {
+  return { req, res in
+    return (req, Response(200, handler()))
+  }
+}
+private func toFunction(_ handler: @escaping (RequestType) -> String) -> Function {
+  return { req, res in
+    return (req, Response(200, handler(req)))
+  }
+}
+
+private func toFunction(_ handler: @escaping () -> Void) -> Function {
+  return { req, res in
+    handler()
+    return (req, res)
+  }
+}
+
+private func toFunction(_ handler: @escaping (RequestType) -> Int) -> Function {
+  return { req, res in
+    return (req, Response(handler(req), ""))
   }
 }
