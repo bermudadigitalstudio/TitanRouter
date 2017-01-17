@@ -97,7 +97,7 @@ final class TitanRouterTests: XCTestCase {
       return username
     }
 
-    app.post("/username") { (req: RequestType) in
+    app.post("/username") { (req: RequestType) -> Int in
       username = req.body
       return 201
     }
