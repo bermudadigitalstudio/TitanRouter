@@ -17,6 +17,12 @@ extension Titan {
   public func {{ method.shortName }}({% for param in method.parameters %}{% if param.argumentLabel != param.name %}{{ param.argumentLabel }} {% endif %}{{ param.name }}: {% if param.typeName.name != "@escaping Function" %}{{ param.typeName }}{% else %}@escaping (RequestType) -> Int{% endif %}{% if not forloop.last %}, {% endif %}{% endfor %}) {
     self.{{ method.shortName }}({% for param in method.parameters %}{% if param.argumentLabel != "_" %}{{ param.argumentLabel }}: {% endif %}{% if param.typeName.name != "@escaping Function" %}{{ param.name }}{% else %}toFunction({{param.name}}){% endif %}{% if not forloop.last %}, {% endif %}{% endfor %})
   }
+  public func {{ method.shortName }}({% for param in method.parameters %}{% if param.argumentLabel != param.name %}{{ param.argumentLabel }} {% endif %}{{ param.name }}: {% if param.typeName.name != "@escaping Function" %}{{ param.typeName }}{% else %}@escaping (inout Request, inout Response) -> Void{% endif %}{% if not forloop.last %}, {% endif %}{% endfor %}) {
+    self.{{ method.shortName }}({% for param in method.parameters %}{% if param.argumentLabel != "_" %}{{ param.argumentLabel }}: {% endif %}{% if param.typeName.name != "@escaping Function" %}{{ param.name }}{% else %}toFunction({{param.name}}){% endif %}{% if not forloop.last %}, {% endif %}{% endfor %})
+  }
+  public func {{ method.shortName }}({% for param in method.parameters %}{% if param.argumentLabel != param.name %}{{ param.argumentLabel }} {% endif %}{{ param.name }}: {% if param.typeName.name != "@escaping Function" %}{{ param.typeName }}{% else %}@escaping (inout Request, inout Response) -> (RequestType, ResponseType){% endif %}{% if not forloop.last %}, {% endif %}{% endfor %}) {
+    self.{{ method.shortName }}({% for param in method.parameters %}{% if param.argumentLabel != "_" %}{{ param.argumentLabel }}: {% endif %}{% if param.typeName.name != "@escaping Function" %}{{ param.name }}{% else %}toFunction({{param.name}}){% endif %}{% if not forloop.last %}, {% endif %}{% endfor %})
+  }
 {% endif %}
 {% endfor %}
 }

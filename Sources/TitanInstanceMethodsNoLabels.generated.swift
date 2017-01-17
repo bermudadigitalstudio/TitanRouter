@@ -19,6 +19,14 @@ extension Titan {
     self.get(path: path, handler: handler)
   }
 
+  public func get(_ path: String, _ handler: @escaping (inout Request, inout Response) -> Void) {
+    self.get(path: path, handler: handler)
+  }
+
+  public func get(_ path: String, _ handler: @escaping (inout Request, inout Response) -> (RequestType, ResponseType)) {
+    self.get(path: path, handler: handler)
+  }
+
   public func post(_ path: String, _ handler: @escaping () -> Void) {
     self.post(path: path, handler: handler)
   }
@@ -32,6 +40,14 @@ extension Titan {
   }
 
   public func post(_ path: String, _ handler: @escaping (RequestType) -> Int) {
+    self.post(path: path, handler: handler)
+  }
+
+  public func post(_ path: String, _ handler: @escaping (inout Request, inout Response) -> Void) {
+    self.post(path: path, handler: handler)
+  }
+
+  public func post(_ path: String, _ handler: @escaping (inout Request, inout Response) -> (RequestType, ResponseType)) {
     self.post(path: path, handler: handler)
   }
 
@@ -51,6 +67,14 @@ extension Titan {
     self.put(path: path, handler: handler)
   }
 
+  public func put(_ path: String, _ handler: @escaping (inout Request, inout Response) -> Void) {
+    self.put(path: path, handler: handler)
+  }
+
+  public func put(_ path: String, _ handler: @escaping (inout Request, inout Response) -> (RequestType, ResponseType)) {
+    self.put(path: path, handler: handler)
+  }
+
   public func patch(_ path: String, _ handler: @escaping () -> Void) {
     self.patch(path: path, handler: handler)
   }
@@ -64,6 +88,14 @@ extension Titan {
   }
 
   public func patch(_ path: String, _ handler: @escaping (RequestType) -> Int) {
+    self.patch(path: path, handler: handler)
+  }
+
+  public func patch(_ path: String, _ handler: @escaping (inout Request, inout Response) -> Void) {
+    self.patch(path: path, handler: handler)
+  }
+
+  public func patch(_ path: String, _ handler: @escaping (inout Request, inout Response) -> (RequestType, ResponseType)) {
     self.patch(path: path, handler: handler)
   }
 
@@ -83,6 +115,14 @@ extension Titan {
     self.delete(path: path, handler: handler)
   }
 
+  public func delete(_ path: String, _ handler: @escaping (inout Request, inout Response) -> Void) {
+    self.delete(path: path, handler: handler)
+  }
+
+  public func delete(_ path: String, _ handler: @escaping (inout Request, inout Response) -> (RequestType, ResponseType)) {
+    self.delete(path: path, handler: handler)
+  }
+
   public func options(_ path: String, _ handler: @escaping () -> Void) {
     self.options(path: path, handler: handler)
   }
@@ -96,6 +136,14 @@ extension Titan {
   }
 
   public func options(_ path: String, _ handler: @escaping (RequestType) -> Int) {
+    self.options(path: path, handler: handler)
+  }
+
+  public func options(_ path: String, _ handler: @escaping (inout Request, inout Response) -> Void) {
+    self.options(path: path, handler: handler)
+  }
+
+  public func options(_ path: String, _ handler: @escaping (inout Request, inout Response) -> (RequestType, ResponseType)) {
     self.options(path: path, handler: handler)
   }
 
@@ -115,6 +163,14 @@ extension Titan {
     self.head(path: path, handler: handler)
   }
 
+  public func head(_ path: String, _ handler: @escaping (inout Request, inout Response) -> Void) {
+    self.head(path: path, handler: handler)
+  }
+
+  public func head(_ path: String, _ handler: @escaping (inout Request, inout Response) -> (RequestType, ResponseType)) {
+    self.head(path: path, handler: handler)
+  }
+
   public func route(_ method: String?, _ path: String, _ handler: @escaping () -> Void) {
     self.route(method: method, path: path, handler: handler)
   }
@@ -131,6 +187,14 @@ extension Titan {
     self.route(method: method, path: path, handler: handler)
   }
 
+  public func route(_ method: String?, _ path: String, _ handler: @escaping (inout Request, inout Response) -> Void) {
+    self.route(method: method, path: path, handler: handler)
+  }
+
+  public func route(_ method: String?, _ path: String, _ handler: @escaping (inout Request, inout Response) -> (RequestType, ResponseType)) {
+    self.route(method: method, path: path, handler: handler)
+  }
+
   public func addFunction(_ path: String, _ handler: @escaping () -> Void) {
     self.addFunction(path: path, handler: handler)
   }
@@ -144,6 +208,14 @@ extension Titan {
   }
 
   public func addFunction(_ path: String, _ handler: @escaping (RequestType) -> Int) {
+    self.addFunction(path: path, handler: handler)
+  }
+
+  public func addFunction(_ path: String, _ handler: @escaping (inout Request, inout Response) -> Void) {
+    self.addFunction(path: path, handler: handler)
+  }
+
+  public func addFunction(_ path: String, _ handler: @escaping (inout Request, inout Response) -> (RequestType, ResponseType)) {
     self.addFunction(path: path, handler: handler)
   }
 
