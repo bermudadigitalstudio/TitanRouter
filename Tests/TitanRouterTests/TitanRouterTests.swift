@@ -7,6 +7,44 @@ final class TitanRouterTests: XCTestCase {
   override func setUp() {
     app = Titan()
   }
+  func testMutableParams() {
+    let app = Titan()
+    app.get("/init") { (req, res) -> Void in
+      res.body = "Hello World"
+      req.path = "/rewritten"
+      res.code = 500
+    }
+    app.addFunction { (req, res) -> (RequestType, ResponseType) in
+      XCTAssertEqual(req.path, "/rewritten")
+      return (req, res)
+    }
+    let response = app.app(request: Request("GET", "/init"))
+    XCTAssertEqual(response.code, 500)
+    XCTAssertEqual(response.body, "Hello World")
+  }
+
+  func testFunctionalMutableParams() {
+    let app = Titan()
+    app.get("/init") { (req: inout Request, res: inout Response) -> (RequestType, ResponseType) in
+      var newReq = req
+      var newRes = res
+      newRes.body = "Hello World"
+      newReq.path = "/rewritten"
+      newRes.code = 500
+      // Check that mutating the inout params has no effect on the function chain – ONLY the returned values should matter
+      res.code = 400
+      res.body = "Should not ever come into the response"
+      return (newReq, newRes)
+    }
+    app.addFunction { (req, res) -> (RequestType, ResponseType) in
+      XCTAssertEqual(req.path, "/rewritten")
+      return (req, res)
+    }
+    let response = app.app(request: Request("GET", "/init"))
+    XCTAssertEqual(response.code, 500)
+    XCTAssertEqual(response.body, "Hello World")
+  }
+
   func testBasicGet() {
     app.get("/username") {
       return "swizzlr"
@@ -97,7 +135,7 @@ final class TitanRouterTests: XCTestCase {
       return username
     }
 
-    app.post("/username") { (req: RequestType) in
+    app.post("/username") { (req: RequestType) -> Int in
       username = req.body
       return 201
     }
