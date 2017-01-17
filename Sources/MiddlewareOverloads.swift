@@ -1,43 +1,43 @@
 import TitanCore
 
 extension Titan {
-  public func get(_ path: String, handler: @escaping (RequestType) -> String) {
+  public func get(path: String, handler: @escaping (RequestType) -> String) {
     get(path: path, handler: toFunction(handler))
   }
 
-  public func post(_ path: String, handler: @escaping (RequestType) -> Int) {
+  public func post(path: String, handler: @escaping (RequestType) -> Int) {
     post(path: path, handler: toFunction(handler))
   }
 
-  public func get(_ path: String, handler: @escaping () -> String) {
+  public func get(path: String, handler: @escaping () -> String) {
     get(path: path, handler: toFunction(handler))
   }
 
-  public func options(_ path: String, handler: @escaping () -> String) {
+  public func options(path: String, handler: @escaping () -> String) {
     options(path: path, handler: toFunction(handler))
   }
 
-  public func post(_ path: String, handler: @escaping () -> String) {
+  public func post(path: String, handler: @escaping () -> String) {
     post(path: path, handler: toFunction(handler))
   }
 
-  public func patch(_ path: String, handler: @escaping () -> String) {
+  public func patch(path: String, handler: @escaping () -> String) {
     patch(path: path, handler: toFunction(handler))
   }
 
-  public func put(_ path: String, handler: @escaping () -> String) {
+  public func put(path: String, handler: @escaping () -> String) {
     put(path: path, handler: toFunction(handler))
   }
 
-  public func delete(_ path: String, handler: @escaping () -> String) {
+  public func delete(path: String, handler: @escaping () -> String) {
     delete(path: path, handler: toFunction(handler))
   }
 
-  public func head(_ path: String, handler: @escaping () -> String) {
+  public func head(path: String, handler: @escaping () -> String) {
     head(path: path, handler: toFunction(handler))
   }
 
-  public func addFunction(_ path: String, handler: @escaping () -> Void) {
+  public func addFunction(path: String, handler: @escaping () -> Void) {
     addFunction(path: path, handler: toFunction(handler))
   }
 }
