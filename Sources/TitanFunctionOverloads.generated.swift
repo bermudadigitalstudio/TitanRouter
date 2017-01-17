@@ -9,13 +9,13 @@ extension Titan {
     self.get(path: path, handler: toFunction(handler))
   }
   public func get(path: String, handler: @escaping () -> String) {
-  self.get(path: path, handler: toFunction(handler))
+    self.get(path: path, handler: toFunction(handler))
   }
   public func get(path: String, handler: @escaping (RequestType) -> String) {
-  self.get(path: path, handler: toFunction(handler))
+    self.get(path: path, handler: toFunction(handler))
   }
   public func get(path: String, handler: @escaping (RequestType) -> Int) {
-  self.get(path: path, handler: toFunction(handler))
+    self.get(path: path, handler: toFunction(handler))
   }
 
 
@@ -24,13 +24,13 @@ extension Titan {
     self.post(path: path, handler: toFunction(handler))
   }
   public func post(path: String, handler: @escaping () -> String) {
-  self.post(path: path, handler: toFunction(handler))
+    self.post(path: path, handler: toFunction(handler))
   }
   public func post(path: String, handler: @escaping (RequestType) -> String) {
-  self.post(path: path, handler: toFunction(handler))
+    self.post(path: path, handler: toFunction(handler))
   }
   public func post(path: String, handler: @escaping (RequestType) -> Int) {
-  self.post(path: path, handler: toFunction(handler))
+    self.post(path: path, handler: toFunction(handler))
   }
 
 
@@ -39,13 +39,13 @@ extension Titan {
     self.put(path: path, handler: toFunction(handler))
   }
   public func put(path: String, handler: @escaping () -> String) {
-  self.put(path: path, handler: toFunction(handler))
+    self.put(path: path, handler: toFunction(handler))
   }
   public func put(path: String, handler: @escaping (RequestType) -> String) {
-  self.put(path: path, handler: toFunction(handler))
+    self.put(path: path, handler: toFunction(handler))
   }
   public func put(path: String, handler: @escaping (RequestType) -> Int) {
-  self.put(path: path, handler: toFunction(handler))
+    self.put(path: path, handler: toFunction(handler))
   }
 
 
@@ -54,13 +54,13 @@ extension Titan {
     self.patch(path: path, handler: toFunction(handler))
   }
   public func patch(path: String, handler: @escaping () -> String) {
-  self.patch(path: path, handler: toFunction(handler))
+    self.patch(path: path, handler: toFunction(handler))
   }
   public func patch(path: String, handler: @escaping (RequestType) -> String) {
-  self.patch(path: path, handler: toFunction(handler))
+    self.patch(path: path, handler: toFunction(handler))
   }
   public func patch(path: String, handler: @escaping (RequestType) -> Int) {
-  self.patch(path: path, handler: toFunction(handler))
+    self.patch(path: path, handler: toFunction(handler))
   }
 
 
@@ -69,13 +69,13 @@ extension Titan {
     self.delete(path: path, handler: toFunction(handler))
   }
   public func delete(path: String, handler: @escaping () -> String) {
-  self.delete(path: path, handler: toFunction(handler))
+    self.delete(path: path, handler: toFunction(handler))
   }
   public func delete(path: String, handler: @escaping (RequestType) -> String) {
-  self.delete(path: path, handler: toFunction(handler))
+    self.delete(path: path, handler: toFunction(handler))
   }
   public func delete(path: String, handler: @escaping (RequestType) -> Int) {
-  self.delete(path: path, handler: toFunction(handler))
+    self.delete(path: path, handler: toFunction(handler))
   }
 
 
@@ -84,13 +84,13 @@ extension Titan {
     self.options(path: path, handler: toFunction(handler))
   }
   public func options(path: String, handler: @escaping () -> String) {
-  self.options(path: path, handler: toFunction(handler))
+    self.options(path: path, handler: toFunction(handler))
   }
   public func options(path: String, handler: @escaping (RequestType) -> String) {
-  self.options(path: path, handler: toFunction(handler))
+    self.options(path: path, handler: toFunction(handler))
   }
   public func options(path: String, handler: @escaping (RequestType) -> Int) {
-  self.options(path: path, handler: toFunction(handler))
+    self.options(path: path, handler: toFunction(handler))
   }
 
 
@@ -99,13 +99,13 @@ extension Titan {
     self.head(path: path, handler: toFunction(handler))
   }
   public func head(path: String, handler: @escaping () -> String) {
-  self.head(path: path, handler: toFunction(handler))
+    self.head(path: path, handler: toFunction(handler))
   }
   public func head(path: String, handler: @escaping (RequestType) -> String) {
-  self.head(path: path, handler: toFunction(handler))
+    self.head(path: path, handler: toFunction(handler))
   }
   public func head(path: String, handler: @escaping (RequestType) -> Int) {
-  self.head(path: path, handler: toFunction(handler))
+    self.head(path: path, handler: toFunction(handler))
   }
 
 
@@ -114,13 +114,13 @@ extension Titan {
     self.route(method: method, path: path, handler: toFunction(handler))
   }
   public func route(method: String?, path: String, handler: @escaping () -> String) {
-  self.route(method: method, path: path, handler: toFunction(handler))
+    self.route(method: method, path: path, handler: toFunction(handler))
   }
   public func route(method: String?, path: String, handler: @escaping (RequestType) -> String) {
-  self.route(method: method, path: path, handler: toFunction(handler))
+    self.route(method: method, path: path, handler: toFunction(handler))
   }
   public func route(method: String?, path: String, handler: @escaping (RequestType) -> Int) {
-  self.route(method: method, path: path, handler: toFunction(handler))
+    self.route(method: method, path: path, handler: toFunction(handler))
   }
 
 
@@ -129,13 +129,13 @@ extension Titan {
     self.addFunction(path: path, handler: toFunction(handler))
   }
   public func addFunction(path: String, handler: @escaping () -> String) {
-  self.addFunction(path: path, handler: toFunction(handler))
+    self.addFunction(path: path, handler: toFunction(handler))
   }
   public func addFunction(path: String, handler: @escaping (RequestType) -> String) {
-  self.addFunction(path: path, handler: toFunction(handler))
+    self.addFunction(path: path, handler: toFunction(handler))
   }
   public func addFunction(path: String, handler: @escaping (RequestType) -> Int) {
-  self.addFunction(path: path, handler: toFunction(handler))
+    self.addFunction(path: path, handler: toFunction(handler))
   }
 
 
