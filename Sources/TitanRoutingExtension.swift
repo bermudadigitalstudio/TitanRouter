@@ -22,6 +22,11 @@ extension Titan {
     route(path: path, handler: handler)
   }
 
+  /// Synonym for `route`
+  public func allMethods(path: String, handler: @escaping Function) {
+    route(path: path, handler: handler)
+  }
+
 }
 
 private func matchRoute(path: String, route: String) -> Bool {

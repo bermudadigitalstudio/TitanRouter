@@ -2,6 +2,14 @@ import XCTest
 import TitanRouter
 import TitanCore
 
+extension Response {
+  init(_ string: String) {
+    self.body = string
+    self.code = 200
+    self.headers = []
+  }
+}
+
 final class TitanRouterTests: XCTestCase {
   var app: Titan!
   override func setUp() {
@@ -46,27 +54,27 @@ final class TitanRouterTests: XCTestCase {
   }
 
   func testBasicGet() {
-    app.get("/username") {
-      return "swizzlr"
+    app.get("/username") { req, _ in
+      return (req, Response("swizzlr"))
     }
     XCTAssertEqual(app.app(request: Request("GET", "/username")).body, "swizzlr")
   }
 
   func testTitanEcho() {
-    app.get("/echoMyBody") { req in
-      return req.body
+    app.get("/echoMyBody") { req, _ in
+      return (req, Response(req.body))
     }
     XCTAssertEqual(app.app(request: Request("GET", "/echoMyBody", "hello, this is my body")).body,
                    "hello, this is my body")
   }
 
   func testMultipleRoutes() {
-    app.get("/username") {
-      return "swizzlr"
+    app.get("/username") { req, _ in
+      return (req, Response("swizzlr"))
     }
 
-    app.get("/echoMyBody") { req in
-      return req.body
+    app.get("/echoMyBody") { req, _ in
+      return (req, Response(req.body))
     }
     XCTAssertEqual(app.app(request: Request("GET", "/echoMyBody", "hello, this is my body")).body,
                    "hello, this is my body")
@@ -84,60 +92,61 @@ final class TitanRouterTests: XCTestCase {
   func testMiddlewareFunction() {
     var start = Date()
     var end = start
-    app.addFunction("*") {
+    app.addFunction("*") { (req: RequestType, res: ResponseType) -> (RequestType, ResponseType) in
       start = Date()
+      return (req, res)
     }
-    app.get("/username") {
-      return "swizzlr"
+    app.get("/username") { req, _ in
+      return (req, Response("swizzlr"))
     }
-    app.addFunction("*") {
+    app.addFunction("*") { (req: RequestType, res: ResponseType) -> (RequestType, ResponseType) in
       end = Date()
+      return (req, res)
     }
     _ = app.app(request: Request("GET", "/username"))
-    XCTAssertNotEqual(start, end)
+    XCTAssertLessThan(start, end)
   }
 
   func testDifferentMethods() {
-    app.get("/getSomething") {
-      return "swizzlrGotSomething!"
+    app.get("/getSomething") { req, _ in
+      return (req, Response("swizzlrGotSomething!"))
     }
 
-    app.post("/postSomething") {
-      return "something posted"
+    app.post("/postSomething") { req, _ in
+      return (req, Response("something posted"))
     }
 
-    app.put("/putSomething") {
-      return "i can confirm that stupid stuff is now on the server"
+    app.put("/putSomething") { req, _ in
+      return (req, Response( "i can confirm that stupid stuff is now on the server"))
     }
 
-    app.patch("/patchSomething") {
-      return "i guess we don't have a flat tire anymore?"
+    app.patch("/patchSomething") { req, _ in
+      return (req, Response("i guess we don't have a flat tire anymore?"))
     }
 
-    app.delete("/deleteSomething") {
-      return "error: could not find the USA or its principles"
+    app.delete("/deleteSomething") { req, _ in
+      return (req, Response("error: could not find the USA or its principles"))
     }
 
-    app.options("/optionSomething") {
-      return "I sold movie rights!"
+    app.options("/optionSomething") { req, _ in
+      return (req, Response("I sold movie rights!"))
     }
 
-    app.head("/headSomething") {
-      return "OWN GOAL!!"
+    app.head("/headSomething") { req, _ in
+      return (req, Response("OWN GOAL!!"))
     }
 
   }
 
   func testSamePathDifferentiationByMethod() {
     var username = ""
-
-    app.get("/username") {
-      return username
+    let created = Response(201, "")
+    app.get("/username") { req, _ in
+      return (req, Response(username))
     }
-
-    app.post("/username") { (req: RequestType) -> Int in
+    app.post("/username") { (req: RequestType, _) in
       username = req.body
-      return 201
+      return (req, created)
     }
 
     let resp = app.app(request: Request("POST", "/username", "Lisa"))

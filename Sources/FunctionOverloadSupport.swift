@@ -1,28 +1,6 @@
 import TitanCore
 
-internal func toFunction(_ handler: @escaping () -> String) -> Function {
-  return { req, res in
-    return (req, Response(200, handler()))
-  }
-}
-internal func toFunction(_ handler: @escaping (RequestType) -> String) -> Function {
-  return { req, res in
-    return (req, Response(200, handler(req)))
-  }
-}
-
-internal func toFunction(_ handler: @escaping () -> Void) -> Function {
-  return { req, res in
-    handler()
-    return (req, res)
-  }
-}
-
-internal func toFunction(_ handler: @escaping (RequestType) -> Int) -> Function {
-  return { req, res in
-    return (req, Response(handler(req), ""))
-  }
-}
+// Mutable variants
 
 internal func toFunction(_ function: @escaping (inout Request, inout Response) -> (RequestType, ResponseType)) -> Function {
   return { req, res in

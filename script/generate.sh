@@ -18,6 +18,7 @@ fi
 rm Sources/*.generated.swift
 
 # We don't actually need this code in Titan, but we want to loop through HTTP methods in Templates, so we have to put it somewhere
+# I can't think of a use for trace or connect
 cat > Sources/HTTPMethods.swift <<EOD
 enum HTTPMethod {
   case GET, POST, PUT, PATCH, DELETE, OPTIONS, HEAD
