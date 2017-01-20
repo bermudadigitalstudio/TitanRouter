@@ -1,0 +1,28 @@
+import TitanCore
+
+// Extend all route methods to access path components directly
+
+extension Titan {
+{% for method in type.HTTPMethod.cases %}
+  public func {{method.name | lowercase}}(pathTemplate: String, handler: @escaping (RequestType, String, ResponseType) -> (RequestType, ResponseType)) {
+    precondition(pathTemplate.wildcards == 1)
+    self.{{method.name | lowercase}}(path: pathTemplate, handler: toFunction(handler, with: pathTemplate))
+  }
+  public func {{method.name | lowercase}}(pathTemplate: String, handler: @escaping (RequestType, String, String, ResponseType) -> (RequestType, ResponseType)) {
+    precondition(pathTemplate.wildcards == 2)
+    self.{{method.name | lowercase}}(path: pathTemplate, handler: toFunction(handler, with: pathTemplate))
+  }
+  public func {{method.name | lowercase}}(pathTemplate: String, handler: @escaping (RequestType, String, String, String, ResponseType) -> (RequestType, ResponseType)) {
+    precondition(pathTemplate.wildcards == 3)
+    self.{{method.name | lowercase}}(path: pathTemplate, handler: toFunction(handler, with: pathTemplate))
+  }
+  public func {{method.name | lowercase}}(pathTemplate: String, handler: @escaping (RequestType, String, String, String, String, ResponseType) -> (RequestType, ResponseType)) {
+    precondition(pathTemplate.wildcards == 4)
+    self.{{method.name | lowercase}}(path: pathTemplate, handler: toFunction(handler, with: pathTemplate))
+  }
+  public func {{method.name | lowercase}}(pathTemplate: String, handler: @escaping (RequestType, String, String, String, String, String, ResponseType) -> (RequestType, ResponseType)) {
+    precondition(pathTemplate.wildcards == 5)
+    self.{{method.name | lowercase}}(path: pathTemplate, handler: toFunction(handler, with: pathTemplate))
+  }
+{% endfor %}
+}

@@ -29,7 +29,34 @@ extension Titan {
 
 }
 
+/// Match a given path with a route. Segments containing an asterisk are treated as wild.
 private func matchRoute(path: String, route: String) -> Bool {
-  guard route != "*" else { return true }
-  return path == route
+  guard route != "*" else { return true } // If it's a wildcard, bail out – I hope the branch predictor's okay with this!
+  guard route.wildcards != 0 else {
+    return path == route // If there are no wildcards, this is easy
+  }
+
+  // WILDCARD LOGIC
+
+  let splitPath = path.splitOnSlashes() // /foo/bar/baz -> [foo, bar, baz]
+  let splitRoute = route.splitOnSlashes() // /foo/*/baz -> [foo, *, baz]
+
+  guard splitRoute.count == splitPath.count else { // if the number of route segments != path segments, then it can't be a match
+    return false
+  }
+  let zipped = zip(splitPath, splitRoute) // produce [(foo, foo), (bar, *), (baz, baz)]
+  for (pathSegment, routeSegment) in zipped {
+    if (routeSegment != pathSegment) && (routeSegment != "*") { // In other words, check they're identical except when the route segment is a wildcard
+      return false
+    } else {
+      continue
+    }
+  }
+  return true
+}
+
+extension String {
+  func splitOnSlashes() -> [String] {
+    return self.characters.split(separator: "/").map { String($0) }
+  }
 }
