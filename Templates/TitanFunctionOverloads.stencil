@@ -2,15 +2,11 @@ import TitanCore
 
 // Overload all Titan instance methods which take a `Function` to take mutable overloads.
 
-extension Titan {
-{% for method in type.Titan.methods %}
-{% if method.parameters.last.typeName.name == "@escaping Function" %}
- public func {{ method.shortName }}({% for param in method.parameters %}{% if param.argumentLabel != param.name %}{{ param.argumentLabel }} {% endif %}{{ param.name }}: {% if param.typeName.name != "@escaping Function" %}{{ param.typeName }}{% else %}@escaping (inout Request, inout Response) -> Void{% endif %}{% if not forloop.last %}, {% endif %}{% endfor %}) {
-  self.{{ method.shortName }}({% for param in method.parameters %}{% if param.argumentLabel != "_" %}{{ param.argumentLabel }}: {% endif %}{% if param.typeName.name != "@escaping Function" %}{{ param.name }}{% else %}toFunction({{param.name}}){% endif %}{% if not forloop.last %}, {% endif %}{% endfor %})
-}
- public func {{ method.shortName }}({% for param in method.parameters %}{% if param.argumentLabel != param.name %}{{ param.argumentLabel }} {% endif %}{{ param.name }}: {% if param.typeName.name != "@escaping Function" %}{{ param.typeName }}{% else %}@escaping (inout Request, inout Response) -> (RequestType, ResponseType){% endif %}{% if not forloop.last %}, {% endif %}{% endfor %}) {
-  self.{{ method.shortName }}({% for param in method.parameters %}{% if param.argumentLabel != "_" %}{{ param.argumentLabel }}: {% endif %}{% if param.typeName.name != "@escaping Function" %}{{ param.name }}{% else %}toFunction({{param.name}}){% endif %}{% if not forloop.last %}, {% endif %}{% endfor %})
-}
-{% endif %}
-{% endfor %}
+extension Titan { {% for method in type.Titan.methods %}{% if method.parameters.last.typeName.name == "@escaping Function" %}
+  public func {{ method.shortName }}({% for param in method.parameters %}{% if param.argumentLabel != param.name %}{{ param.argumentLabel }} {% endif %}{{ param.name }}: {% if param.typeName.name != "@escaping Function" %}{{ param.typeName }}{% else %}@escaping (inout Request, inout Response) -> Void{% endif %}{% if not forloop.last %}, {% endif %}{% endfor %}) {
+    self.{{ method.shortName }}({% for param in method.parameters %}{% if param.argumentLabel != "_" %}{{ param.argumentLabel }}: {% endif %}{% if param.typeName.name != "@escaping Function" %}{{ param.name }}{% else %}toFunction({{param.name}}){% endif %}{% if not forloop.last %}, {% endif %}{% endfor %})
+  }
+  public func {{ method.shortName }}({% for param in method.parameters %}{% if param.argumentLabel != param.name %}{{ param.argumentLabel }} {% endif %}{{ param.name }}: {% if param.typeName.name != "@escaping Function" %}{{ param.typeName }}{% else %}@escaping (inout Request, inout Response) -> (RequestType, ResponseType){% endif %}{% if not forloop.last %}, {% endif %}{% endfor %}) {
+    self.{{ method.shortName }}({% for param in method.parameters %}{% if param.argumentLabel != "_" %}{{ param.argumentLabel }}: {% endif %}{% if param.typeName.name != "@escaping Function" %}{{ param.name }}{% else %}toFunction({{param.name}}){% endif %}{% if not forloop.last %}, {% endif %}{% endfor %})
+  }{% endif %}{% endfor %}
 }
