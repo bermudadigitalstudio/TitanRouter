@@ -3,6 +3,10 @@ import TitanCore
 // Routing methods for Titan overloaded with no labels
 extension Titan {
 
+  public func get(_ pathTemplate: String, _ handler: @escaping (RequestType, String, ResponseType) -> (RequestType, ResponseType)) {
+    self.get(pathTemplate: pathTemplate, handler: handler)
+  }
+
   public func get(_ path: String, _ handler: @escaping (inout Request, inout Response) -> Void) {
     self.get(path: path, handler: handler)
   }

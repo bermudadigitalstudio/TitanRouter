@@ -153,4 +153,20 @@ final class TitanRouterTests: XCTestCase {
     XCTAssertEqual(resp.code, 201)
     XCTAssertEqual(app.app(request: Request("GET", "/username")).body, "Lisa")
   }
+
+  func testMatchingWildcardComponents() {
+    app.get("/foo/*/baz/*/bar") { req, res in
+      return (req, Response(200, ""))
+    }
+    let resp = app.app(request: Request("GET", "/foo/123456/baz/7890/bar"))
+    XCTAssertEqual(resp.code, 200)
+  }
+
+  func testTypesafePathParams() {
+    app.get(pathTemplate: "/foo/*/baz") { req, id, res in
+      return (req, Response(id))
+    }
+    let resp = app.app(request: Request("GET", "/foo/567/baz"))
+    XCTAssertEqual(resp.body, "567")
+  }
 }
