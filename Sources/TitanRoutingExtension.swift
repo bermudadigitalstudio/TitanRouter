@@ -35,10 +35,8 @@ private func matchRoute(path: String, route: String) -> Bool {
   guard route.wildcards != 0 else {
     return path == route
   }
-  let splitRoute = route.characters.split(separator: "/").map { String($0) }
-  let splitPath = path.characters.split(separator: "/").map { String($0) }
-  let zipped = zip(splitRoute, splitPath)
-  for (routeSegment, pathSegment) in zipped {
+  let zipped = splitAndZip(path: path, route: route)
+  for (pathSegment, routeSegment) in zipped {
     if (routeSegment != pathSegment) && (routeSegment != "*") {
       return false
     } else {
@@ -46,4 +44,10 @@ private func matchRoute(path: String, route: String) -> Bool {
     }
   }
   return true
+}
+
+func splitAndZip(path: String, route: String) -> Zip2Sequence<[String], [String]>  {
+  let splitRoute = route.characters.split(separator: "/").map { String($0) }
+  let splitPath = path.characters.split(separator: "/").map { String($0) }
+  return zip(splitPath, splitRoute)
 }

@@ -19,6 +19,13 @@ func toFunction(_ handler: @escaping (RequestType, String, ResponseType) -> (Req
 /// return 567
 
 func extractParameter(from path: String, with template: String) -> String {
+  let z = splitAndZip(path: path, route: template)
+  for (pathComp, templateComp) in z {
+    guard templateComp == "*" else {
+      continue
+    }
+    return pathComp
+  }
   return ""
 }
 
