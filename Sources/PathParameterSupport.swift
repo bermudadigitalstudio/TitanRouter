@@ -54,7 +54,6 @@ func extractParameters(from path: String, with template: String) -> [String] {
 }
 
 extension String {
-
   var wildcards: Int {
     return self.characters.reduce(0) { (count, char) in
       if char == "*" {
