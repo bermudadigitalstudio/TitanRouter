@@ -167,4 +167,12 @@ final class TitanRouterTests: XCTestCase {
     let resp = app.app(request: Request("GET", "/foo/bar"))
     XCTAssertNotEqual(resp.body, "Got foo")
   }
+
+  func testMatchingWithAQuery() {
+    app.get("/test/hello") { req, res in
+      return (req, Response(200))
+    }
+    let resp = app.app(request: Request("GET", "/test/hello?query=thing&q=2"))
+    XCTAssertEqual(resp.code, 200)
+  }
 }
