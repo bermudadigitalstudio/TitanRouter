@@ -9,7 +9,7 @@ extension Titan {
       if let m = method, m.uppercased() != req.method.uppercased() {
         return (req, res)
       }
-      guard matchRoute(path: req.path, route: path) else {
+      guard matchRoute(path: req.path.prefixUpToQuery(), route: path) else {
         return (req, res)
       }
       return handler(req, res)
@@ -30,6 +30,7 @@ extension Titan {
 }
 
 /// Match a given path with a route. Segments containing an asterisk are treated as wild.
+/// Assuming querystring has already been stripped, including the question mark
 private func matchRoute(path: String, route: String) -> Bool {
   guard route != "*" else { return true } // If it's a wildcard, bail out – I hope the branch predictor's okay with this!
   guard route.wildcards != 0 else {
@@ -58,5 +59,14 @@ private func matchRoute(path: String, route: String) -> Bool {
 extension String {
   func splitOnSlashes() -> [String] {
     return self.characters.split(separator: "/").map { String($0) }
+  }
+}
+
+extension String {
+  func prefixUpToQuery() -> String {
+    let chars = self.characters
+    return chars.index(of: "?")
+      .map { chars.prefix(upTo: $0) }
+      .map(String.init) ?? self
   }
 }
