@@ -1,13 +1,17 @@
+// swift-tools-version:4.0
+
 import PackageDescription
 
 var package = Package(
     name: "TitanRouter",
+    products: [
+        .library(name: "TitanRouter", targets: ["TitanRouter"]),
+    ],
     dependencies: [
-      .Package(url: "https://github.com/bermudadigitalstudio/TitanCore.git", majorVersion: 0, minor: 3)
+        .package(url: "https://github.com/bermudadigitalstudio/TitanCore.git", .upToNextMinor(from: "0.3.0"))
+    ],
+    targets: [
+        .target(name: "TitanRouter", dependencies: ["TitanCore"]),
+        .testTarget(name: "TitanRouterTests", dependencies: ["TitanRouter"])
     ]
 )
-
-// Uncomment the following to install sourcery for development
-//package.dependencies.append(
-// .Package(url: "https://github.com/krzysztofzablocki/Sourcery.git", "0.5.3")
-//)
